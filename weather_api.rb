@@ -1,6 +1,38 @@
 require 'uri'
 require 'net/http'
 require 'json'
+require 'date'
+
+class DayForecast
+  attr_reader :date, :high, :low, :description
+
+  def initialize(date, high, low, description)
+    @date = Date.parse(date)
+    @high = high.to_i
+    @low = low.to_i
+    @description = description
+  end
+end
+
+class Location
+  attr_reader :city, :country, :region
+
+  def initialize(city, country, region)
+    @city = city.strip
+    @country = country.strip
+    @region = region.strip
+  end
+end
+
+class Forecast
+  attr_reader :location, :temp_unit, :forecasts
+
+  def initialize(location, temp_unit, day_forecasts)
+    @location = location
+    @temp_unit = temp_unit
+    @forecasts = day_forecasts
+  end
+end
 
 class WeatherAPI
   def self.validate_forecast_location(location)
@@ -34,7 +66,11 @@ class YahooWeatherAPI < WeatherAPI
     channels = query['results']['channel'].is_a?(Array) ? query['results']['channel'] : [query['results']['channel']]
 
     # Record location, units & forecast (10 day)
-    channels.map{ |c| { location: c['location'], units: c['units'],
-                        forecast: c['item']['forecast'] } }
+    channels.map do |c|
+      l = c['location']
+      Forecast.new(Location.new(l['city'], l['country'], l['region']),
+                   c['units']['temperature'],
+                   c['item']['forecast'].map{ |f| DayForecast.new(f['date'], f['high'], f['low'], f['text']) })
+    end
   end
 end
