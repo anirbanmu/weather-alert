@@ -1,0 +1,86 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://query.yahooapis.com/v1/public/yql?env=store://datatables.org/alltableswithkeys&format=json&q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text=%22Minneapolis%22)
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - query.yahooapis.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Content-Type-Options:
+      - nosniff
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/json;charset=utf-8
+      Cache-Control:
+      - no-cache
+      Date:
+      - Thu, 18 Jan 2018 20:38:35 GMT
+      Age:
+      - '0'
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Strict-Transport-Security:
+      - max-age=31536000
+      Via:
+      - http/1.1 a110.ue.bf1.yahoo.net (ApacheTrafficServer [cMsSf ])
+      Server:
+      - ATS
+      Public-Key-Pins-Report-Only:
+      - max-age=2592000; pin-sha256="2oALgLKofTmeZvoZ1y/fSZg7R9jPMix8eVA6DH4o/q8=";
+        pin-sha256="cAajgxHlj7GTSEIzIYIQxmEloOSoJq7VOaxWHfv72QM="; pin-sha256="SVqWumuteCQHvVIaALrOZXuzVVVeS7f4FGxxu6V+es4=";
+        pin-sha256="UZJDjsNp1+4M5x9cbbdflB779y5YRBcV6Z6rBMLIrO4="; pin-sha256="JbQbUG5JMJUoI6brnx0x3vZF6jilxsapbXGVfjhN8Fg=";
+        pin-sha256="lnsM2T/O9/J84sJFdnrpsFp3awZJ+ZZbYpCWhGloaHI="; pin-sha256="h6801m+z8v3zbgkRHpq6L29Esgfzhj89C1SyUCOQmqU=";
+        pin-sha256="SQVGZiOrQXi+kqxcvWWE96HhfydlLVqFr4lQTqI5qqo="; pin-sha256="q5hJUnat8eyv8o81xTBIeB5cFxjaucjmelBPT2pRMo8=";
+        pin-sha256="vPtEqrmtAhAVcGtBIep2HIHJ6IlnWQ9vlK50TciLePs="; pin-sha256="lpkiXF3lLlbN0y3y6W0c/qWqPKC7Us2JM8I7XCdEOCA=";
+        pin-sha256="r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E="; pin-sha256="WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=";
+        pin-sha256="2fRAUXyxl4A1/XHrKNBmc8bTkzA7y4FB/GLJuNAzCqY="; pin-sha256="dolnbtzEBnELx/9lOEQ22e6OZO/QNb6VSSX2XHA3E7A=";
+        includeSubdomains; report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-hpkp-report-only"
+      Expect-Ct:
+      - max-age=31536000; report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only"
+    body:
+      encoding: UTF-8
+      string: '{"query":{"count":1,"created":"2018-01-18T20:38:35Z","lang":"en-US","results":{"channel":{"units":{"distance":"mi","pressure":"in","speed":"mph","temperature":"F"},"title":"Yahoo!
+        Weather - Minneapolis, MN, US","link":"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2452078/","description":"Yahoo!
+        Weather for Minneapolis, MN, US","language":"en-us","lastBuildDate":"Thu,
+        18 Jan 2018 02:38 PM CST","ttl":"60","location":{"city":"Minneapolis","country":"United
+        States","region":" MN"},"wind":{"chill":"37","direction":"235","speed":"11"},"atmosphere":{"humidity":"50","pressure":"979.0","rising":"0","visibility":"16.1"},"astronomy":{"sunrise":"7:46
+        am","sunset":"5:2 pm"},"image":{"title":"Yahoo! Weather","width":"142","height":"18","link":"http://weather.yahoo.com","url":"http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif"},"item":{"title":"Conditions
+        for Minneapolis, MN, US at 02:00 PM CST","lat":"44.979031","long":"-93.264931","link":"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2452078/","pubDate":"Thu,
+        18 Jan 2018 02:00 PM CST","condition":{"code":"32","date":"Thu, 18 Jan 2018
+        02:00 PM CST","temp":"41","text":"Sunny"},"forecast":[{"code":"30","date":"18
+        Jan 2018","day":"Thu","high":"38","low":"21","text":"Partly Cloudy"},{"code":"28","date":"19
+        Jan 2018","day":"Fri","high":"40","low":"27","text":"Mostly Cloudy"},{"code":"28","date":"20
+        Jan 2018","day":"Sat","high":"39","low":"27","text":"Mostly Cloudy"},{"code":"16","date":"21
+        Jan 2018","day":"Sun","high":"38","low":"29","text":"Snow"},{"code":"14","date":"22
+        Jan 2018","day":"Mon","high":"36","low":"22","text":"Snow Showers"},{"code":"30","date":"23
+        Jan 2018","day":"Tue","high":"24","low":"11","text":"Partly Cloudy"},{"code":"30","date":"24
+        Jan 2018","day":"Wed","high":"24","low":"7","text":"Partly Cloudy"},{"code":"28","date":"25
+        Jan 2018","day":"Thu","high":"30","low":"16","text":"Mostly Cloudy"},{"code":"5","date":"26
+        Jan 2018","day":"Fri","high":"34","low":"28","text":"Rain And Snow"},{"code":"28","date":"27
+        Jan 2018","day":"Sat","high":"23","low":"13","text":"Mostly Cloudy"}],"description":"<![CDATA[<img
+        src=\"http://l.yimg.com/a/i/us/we/52/32.gif\"/>\n<BR />\n<b>Current Conditions:</b>\n<BR
+        />Sunny\n<BR />\n<BR />\n<b>Forecast:</b>\n<BR /> Thu - Partly Cloudy. High:
+        38Low: 21\n<BR /> Fri - Mostly Cloudy. High: 40Low: 27\n<BR /> Sat - Mostly
+        Cloudy. High: 39Low: 27\n<BR /> Sun - Snow. High: 38Low: 29\n<BR /> Mon -
+        Snow Showers. High: 36Low: 22\n<BR />\n<BR />\n<a href=\"http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2452078/\">Full
+        Forecast at Yahoo! Weather</a>\n<BR />\n<BR />\n<BR />\n]]>","guid":{"isPermaLink":"false"}}}}}}'
+    http_version: 
+  recorded_at: Thu, 18 Jan 2018 20:38:35 GMT
+recorded_with: VCR 4.0.0
