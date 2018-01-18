@@ -1,10 +1,7 @@
 require_relative 'weather_api'
 
-def weather_alert(location)
-  weather = YahooWeatherAPI::get_forecast(location)
-  puts 'No forecast found for given search location' if weather.empty?
-
-  weather.each do |w|
+def weather_alert(weather_forecasts)
+  weather_forecasts.each do |w|
     w.forecasts.each do |f|
       alert_template = "Expect %s on #{f.date.strftime('%A, %B %d, %Y')} in #{w.location.city}, #{w.location.region}, #{w.location.country}"
       puts alert_template % 'rain' if f.rain?
@@ -16,5 +13,3 @@ def weather_alert(location)
     end
   end
 end
-
-weather_alert ARGV[0]
