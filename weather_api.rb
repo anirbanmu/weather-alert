@@ -11,6 +11,37 @@ class DayForecast
     @high = high.to_i
     @low = low.to_i
     @description = description
+    @downcased_description = description.strip.downcase
+  end
+
+  def rain?
+    mentioned? %w[rain drizzle]
+  end
+
+  def thunderstorm?
+    mentioned? %w[thunderstorm]
+  end
+
+  def snow?
+    mentioned? %w[snow]
+  end
+
+  def ice?
+    mentioned? %w[ice icy]
+  end
+
+  def high_heat?
+    self.high > 85
+  end
+
+  def freezing_temp?
+    self.low < 32
+  end
+
+  private
+
+  def mentioned?(keywords)
+    keywords.any?{ |k| @downcased_description.include? k }
   end
 end
 
@@ -29,6 +60,7 @@ class Forecast
 
   def initialize(location, temp_unit, day_forecasts)
     @location = location
+    raise ArgumentError.new('Temperature unit is expected to be F') if temp_unit.downcase != 'f'
     @temp_unit = temp_unit
     @forecasts = day_forecasts
   end
