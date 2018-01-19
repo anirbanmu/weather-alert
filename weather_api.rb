@@ -77,7 +77,7 @@ class WeatherAPI
     uri = build_forecast_uri(location)
     response = Net::HTTP::get_response(uri)
     raise "External API failed with #{response.code}" if !response.is_a?(Net::HTTPSuccess)
-    parse_forecast_json(response.body)
+    parse_forecast_json(JSON.parse(response.body))
   end
 end
 
@@ -92,8 +92,8 @@ class YahooWeatherAPI < WeatherAPI
     uri
   end
 
-  def self.parse_forecast_json(json_string)
-    query = JSON.parse(json_string)['query']
+  def self.parse_forecast_json(json)
+    query = json['query']
     return [] if query['count'] == 0
     channels = query['results']['channel'].is_a?(Array) ? query['results']['channel'] : [query['results']['channel']]
 

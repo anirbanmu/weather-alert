@@ -2,7 +2,7 @@ require_relative '../weather_api'
 
 describe DayForecast do
   context 'description based queries' do
-    let(:params) { [Date.new.to_s, 0, 0,] }
+    let(:params) { [Date.new.to_s, '0', '0',] }
 
     describe '#rain?' do
       it 'returns true when rain is mentioned (case insensitive)' do
@@ -56,29 +56,29 @@ describe DayForecast do
   context 'temperature based' do
     describe '#high_heat?' do
       it 'returns true if high greater than 85' do
-        expect(DayForecast.new(Date.new.to_s, 86, 0, '').high_heat?).to be true
+        expect(DayForecast.new(Date.new.to_s, '86', '0', '').high_heat?).to be true
       end
 
       it 'returns false if high is 85' do
-        expect(DayForecast.new(Date.new.to_s, 85, 0, '').high_heat?).to be false
+        expect(DayForecast.new(Date.new.to_s, '85', '0', '').high_heat?).to be false
       end
 
       it 'returns false if high is less than 85' do
-        expect(DayForecast.new(Date.new.to_s, 3, 0, '').high_heat?).to be false
+        expect(DayForecast.new(Date.new.to_s, '3', '0', '').high_heat?).to be false
       end
     end
 
     describe '#freezing_temp?' do
       it 'returns true if low lower than 32' do
-        expect(DayForecast.new(Date.new.to_s, 86, 31, '').freezing_temp?).to be true
+        expect(DayForecast.new(Date.new.to_s, '86', '31', '').freezing_temp?).to be true
       end
 
       it 'returns false if low is 32' do
-        expect(DayForecast.new(Date.new.to_s, 85, 32, '').freezing_temp?).to be false
+        expect(DayForecast.new(Date.new.to_s, '85', '32', '').freezing_temp?).to be false
       end
 
       it 'returns false if low is greater than 32' do
-        expect(DayForecast.new(Date.new.to_s, 3, 35, '').freezing_temp?).to be false
+        expect(DayForecast.new(Date.new.to_s, '3', '35', '').freezing_temp?).to be false
       end
     end
   end
@@ -110,6 +110,21 @@ describe YahooWeatherAPI, :vcr do
 
     it 'returns one result when a real location is used' do
       expect(YahooWeatherAPI::get_forecast('Minneapolis').length).to eq(1)
+    end
+  end
+
+  describe '.parse_forecast_json' do
+    let(:units) { { 'temperature' => 'F' } }
+    let(:location) { { 'city' => 'City', 'country' => 'Country', 'region' => 'Region' } }
+    let(:forecast) { [{ 'date' => '18 Jan 2018', 'high' => '55', 'low' => '26', 'text' => 'Sunny'}] }
+    let(:simple_forecast) { { 'query' => { 'results' => { 'channel' => { 'units' => units,
+                                                                         'location' => location,
+                                                                         'item' => { 'forecast' => forecast } } } } } }
+    it 'parses correct parameters from API json' do
+      expect(Location).to receive(:new).with(location['city'], location['country'], location['region'])
+      expect(DayForecast).to receive(:new).with(forecast.first['date'], forecast.first['high'], forecast.first['low'], forecast.first['text'])
+      expect(Forecast).to receive(:new).with(nil, units['temperature'], [nil]) # nil's due the fact that we stubbed the .new calls above
+      YahooWeatherAPI::parse_forecast_json(simple_forecast)
     end
   end
 end
