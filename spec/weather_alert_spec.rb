@@ -22,7 +22,7 @@ describe 'weather_alert' do
   end
 
   it 'prints nothing with calm forecast' do
-    expect{ weather_alert(weather_forecasts) }.to_not output.to_stdout
+    expect{ weather_alert(weather_forecasts) }.to output(/no alerts/i).to_stdout
   end
 
   it 'prints rain message' do
