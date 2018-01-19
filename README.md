@@ -9,6 +9,10 @@ A small utility written in Ruby that queries the Yahoo Weather API for a 10 day 
 - Install required gems - `bundle install`
 - Run the commandline utility via `./run.rb <LOCATION SEARCH TERM>` or `ruby run.rb <LOCATION SEARCH TERM>`
 
+### How to run tests
+- This assumes the the above instructions on how to run are complete.
+- Run `bundle exec rspec` from the repo directory.
+
 ### Gems used
 - RSpec
 - VCR (for recording & playing back network requests to the Yahoo API). This enables running the test even when the network is down.
