@@ -2,8 +2,6 @@ require_relative '../weather_alert'
 
 describe 'weather_alert' do
   let(:location) { double(city: 'City', country: 'Country', region: 'Region') }
-
-  #let(:location) { Object.new(city: 'City', country: 'Country', region: 'Region') }
   let(:day_forecast) { double(date: Date.new, high: 46, low: 45, description: '') }
   let(:weather_forecasts) { [double(location: location, temp_unit: 'F', forecasts: [day_forecast])] }
 
